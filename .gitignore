@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Production build
+dist/
+build/
+client/dist/
+
+# Environment variables
+.env
+.env.local
+server/.env
+
+# SQLite Database
+*.sqlite
+*.sqlite3
+*.db
+server/data/
+
+# OS & Logs
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

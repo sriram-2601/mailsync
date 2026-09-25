@@ -1,0 +1,25 @@
+{
+  "name": "gmail-to-calendar",
+  "version": "1.0.0",
+  "description": "Automated Gmail to Google Calendar sync web application",
+  "scripts": {
+    "dev": "concurrently -k -n \"server,client\" -c \"blue,cyan\" \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "build:client": "npm run build --prefix client",
+    "build:server": "npm run build --prefix server",
+    "build": "npm run build:client && npm run build:server"
+  },
+  "keywords": [
+    "gmail",
+    "google-calendar",
+    "automation",
+    "oauth2",
+    "ai-extractor"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
