@@ -16,6 +16,7 @@ server/.env
 *.sqlite
 *.sqlite3
 *.db
+data/
 server/data/
 
 # OS & Logs

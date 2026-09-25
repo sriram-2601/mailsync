@@ -8,7 +8,9 @@
     "dev:client": "npm run dev --prefix client",
     "build:client": "npm run build --prefix client",
     "build:server": "npm run build --prefix server",
-    "build": "npm run build:client && npm run build:server"
+    "build": "npm run build:client && npm run build:server",
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "start": "node server/dist/index.js"
   },
   "keywords": [
     "gmail",

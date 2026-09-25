@@ -1,0 +1,13 @@
+node_modules
+*/node_modules
+dist
+client/dist
+server/dist
+.git
+.env
+.env.local
+server/.env
+*.db
+server/data
+data
+*.log

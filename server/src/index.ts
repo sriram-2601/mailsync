@@ -1,3 +1,5 @@
+import path from 'path';
+import fs from 'fs';
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -41,6 +43,25 @@ app.get('/api/health', (req, res) => {
     googleConfigured: config.isGoogleConfigured()
   });
 });
+
+// Serve compiled client assets in production if present
+const candidatePaths = [
+  path.resolve(process.cwd(), '../client/dist'),
+  path.resolve(process.cwd(), 'client/dist'),
+  path.resolve(process.cwd(), 'dist/client')
+];
+
+const clientDistPath = candidatePaths.find(p => fs.existsSync(p));
+if (clientDistPath) {
+  console.log(`[Server] Serving compiled client static build from ${clientDistPath}`);
+  app.use(express.static(clientDistPath));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      return next();
+    }
+    res.sendFile(path.join(clientDistPath, 'index.html'));
+  });
+}
 
 // Error handling middleware
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
