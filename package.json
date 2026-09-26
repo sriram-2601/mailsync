@@ -12,7 +12,7 @@
     "build:client": "npm run build --prefix client",
     "build:server": "npm run build --prefix server",
     "build": "npm run build:client && npm run build:server",
-    "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "install:all": "npm install --include=dev && npm install --prefix server --include=dev && npm install --prefix client --include=dev",
     "start": "node server/dist/index.js"
   },
   "keywords": [
