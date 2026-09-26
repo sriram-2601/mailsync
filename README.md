@@ -157,6 +157,31 @@ Here is a quick visual guide to everything you see on the dashboard:
 
 ---
 
+## ☁️ Cloud Deployment (1-Click Deploy to Render)
+
+You can deploy MailCal Sync to the cloud for free with 1 click using Render:
+
+<p align="center">
+  <a href="https://render.com/deploy?repo=https://github.com/sriram-2601/mailsync" target="_blank">
+    <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" />
+  </a>
+</p>
+
+### Quick Render Deployment Steps:
+1. **Click the button above** (or go to [dashboard.render.com](https://dashboard.render.com) > **New +** > **Blueprint** and select `sriram-2601/mailsync`).
+2. **Fill in Environment Variables:**
+   - `GOOGLE_CLIENT_ID`: Your Google OAuth Client ID
+   - `GOOGLE_CLIENT_SECRET`: Your Google OAuth Client Secret
+   *(Leave `GOOGLE_REDIRECT_URI` blank or set it to your assigned Render URL; Render auto-detects `RENDER_EXTERNAL_URL`)*
+3. **Update Google Cloud Console:**
+   Add your deployed URL callback to **Authorized redirect URIs** in [Google Cloud Console](https://console.cloud.google.com/apis/credentials):
+   ```text
+   https://<your-service-name>.onrender.com/api/auth/callback
+   ```
+4. Done! Your background sync runs 24/7 in the cloud.
+
+---
+
 ## 🚀 How to Run Locally (3 Simple Steps)
 
 ### Step 1: Install Dependencies

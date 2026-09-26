@@ -70,13 +70,25 @@ authRouter.get('/callback', async (req: Request, res: Response) => {
   const code = req.query.code as string;
   const error = req.query.error as string;
 
+  const getTargetUrl = () => {
+    if (process.env.RENDER_EXTERNAL_URL) return process.env.RENDER_EXTERNAL_URL;
+    if (config.clientUrl && !config.clientUrl.includes('localhost:5173')) return config.clientUrl;
+    const proto = req.headers['x-forwarded-proto'] || req.protocol || 'http';
+    const host = req.headers['x-forwarded-host'] || req.get('host');
+    if (host && !host.includes('localhost:5000')) {
+      return `${proto}://${host}`;
+    }
+    return config.clientUrl;
+  };
+  const targetUrl = getTargetUrl();
+
   if (error) {
     logger.error(`Google OAuth returned error: ${error}`);
-    return res.redirect(`${config.clientUrl}?error=${encodeURIComponent(error)}`);
+    return res.redirect(`${targetUrl}?error=${encodeURIComponent(error)}`);
   }
 
   if (!code) {
-    return res.redirect(`${config.clientUrl}?error=missing_code`);
+    return res.redirect(`${targetUrl}?error=missing_code`);
   }
 
   try {
@@ -94,10 +106,10 @@ authRouter.get('/callback', async (req: Request, res: Response) => {
       maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
     });
 
-    return res.redirect(`${config.clientUrl}?auth=success`);
+    return res.redirect(`${targetUrl}?auth=success`);
   } catch (err: any) {
     logger.error('Error handling Google OAuth callback', err);
-    return res.redirect(`${config.clientUrl}?error=${encodeURIComponent(err.message || 'Authentication failed')}`);
+    return res.redirect(`${targetUrl}?error=${encodeURIComponent(err.message || 'Authentication failed')}`);
   }
 });
 

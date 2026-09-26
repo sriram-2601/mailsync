@@ -2,6 +2,9 @@
   "name": "gmail-to-calendar",
   "version": "1.0.0",
   "description": "Automated Gmail to Google Calendar sync web application",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "dev": "concurrently -k -n \"server,client\" -c \"blue,cyan\" \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
     "dev:server": "npm run dev --prefix server",
